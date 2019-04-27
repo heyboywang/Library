@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block link %}
+{% if username %}
+    <a href="{% url 'library:user' %}">{{username}}，欢迎登录</a>
+{% else %}
+    <a href="{% url 'library:user_login' %}">学生登录</a>
+{% endif %}
+<a href="">浏览信息</a>
+{% endblock %}
+
+
+{% block body %}
+<img src="/static/imgs/me.jpg" alt="">
+{% endblock %}

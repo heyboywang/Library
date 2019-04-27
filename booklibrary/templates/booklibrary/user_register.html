@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block link %}
+	<a href="{% url 'library:index' %}"> 返回   </a>|
+<a href="{% url 'library:user_login' %}">登录</a>
+{% endblock %}
+
+
+{% block body %}
+    {% if error %}
+	<div class=error>
+	  <strong>Errror : </strong> {{error}}
+	</div>
+	{% endif %}
+    <form action="{% url 'library:register_tools' %}" method="post">
+        {% csrf_token %}
+        用户名：<br>{{form.username}}  <br>
+        密码：<br>{{ form.password }} <br>
+        学院：<br>{{ form.college }} <br>
+        学号：<br>{{ form.uno }} <br>
+        email：<br>{{ form.email }} <br><br>
+        <input type="submit" value="提交">
+    </form>
+{% endblock %}
