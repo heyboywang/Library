@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block link %}
+	<a href="{% url 'library:user_info' %}"> 返回   </a>|
+
+{% endblock %}
+
+
+{% block body %}
+    {% if error %}
+	<div class=error>
+	  <strong>Errror : </strong> {{error}}
+	</div>
+	{% endif %}
+    <form action="{% url 'library:user_info_update' user.id %}" method="post">
+        {% csrf_token %}
+        用户名：<br><input type="text" name="uname" placeholder={{user.username}}>  <br>
+        密码：<br><input type="text" name="pwd" placeholder={{user.password}}> <br>
+        学院：<br><input type="text" name="college" placeholder={{user.college}}> <br>
+        学号：<br><input type="text" name="uno" placeholder={{user.uno}}> <br>
+        email：<br><input type="text" name="email" placeholder={{user.email}}> <br><br>
+        <input type="submit" value="提交">
+    </form>
+{% endblock %}

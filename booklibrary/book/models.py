@@ -22,3 +22,7 @@ class Borrows(models.Model):
     date_borrow = models.DateTimeField(auto_now_add=True)
     date_retur = models.DateTimeField()
     status = models.BooleanField(default=False)
+
+    def statu(self):
+        return self.status
+    statu.short_description = '状态'

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block link %}
+	<a href="{% url 'library:user' %}"> 返回   </a>|
+
+{% endblock %}
+
+
+{% block body %}
+    {% if error %}
+	<div class=error>
+	  <strong>Errror : </strong> {{error}}
+	</div>
+	{% endif %}
+    <div class=actions>
+	  <form action="" method="post">
+          {% csrf_token %}
+	    <dd>
+	      <select name="item">
+            <option value="bname"> 书名 </option>
+            <option value="author"> 作者 </option>
+	      </select>
+	      <input type="text" name="query" size="80">
+	      <input type="submit" value="查询">
+	    </dd>
+	  </form>
+	</div>
+	{% if books %}
+	<table width="600" border="1" align="center">
+	  <tr>
+	    <th align="center"> ISBN </th>
+	    <th align="center"> 书名 </th>
+	    <th align="center"> 作者</th>
+	    <th align="center"> 出版商 </th>
+	    <th align="center"> 出版时间 </th>
+	    <th align="center"> 查看信息 </th>
+	  </tr>
+	  {% for book in books %}
+	  <tr>
+	    <th align="center"> {{book.id}}</th>
+	    <th align="center"> {{book.bname}} </th>
+	    <th align="center"> {{book.auther}}</th>
+	    <th align="center"> {{book.public_com}} </th>
+	    <th align="center"> {{book.public_date}}</th>
+	    <th align="center"> <a href="{% url 'library:book_info' book.id %}"> 点击进入 </a> </th>
+	  </tr>
+	  {% endfor %}
+	  {% endif %}
+	</table>
+{% endblock %}

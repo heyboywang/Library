@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block link %}
+    <a href="{% url 'library:user' %}"> 返回   </a>|
+{% endblock %}
+
+
+{% block body %}
+<table width="600" border="1" align="center">
+  <tr>
+    <th align="center"> 借阅书籍 </th>
+    <th align="center"> 借阅时间</th>
+    <th align="center"> 还书时间 </th>
+    <th align="center"> 状态 </th>
+  </tr>
+  {% for borrow in borrows %}
+  <tr>
+    <th align="center"> {{borrow.bname}}</th>
+    <th align="center"> {{borrow.date_borrow}} </th>
+    <th align="center"> {{borrow.date_retur}}</th>
+    <th align="center">
+        {% if borrow.status %}
+        未还书
+        {% else %}
+        已还
+        {% endif %}
+    </th>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
 {% block link %}
-    <a href="{% url 'library:logout' %}"> 注销[{{user.username}}] </a> |
-	<a href=""> 查询 </a> |
-	<a href=""> 查看个人信息 </a> |
-	<a href=""> 查看阅读记录 </a>
+    <a href="{% url 'library:user' %}"> 返回   </a>|
+	<a href="{% url 'library:user_info_update' user.id %}"> 修改 </a>
 {% endblock %}
 
 
 {% block body %}
-个人信息
+姓名：{{user.username}}<br>
+密码：{{user.password}}<br>
+学院：{{user.college}}<br>
+学号：{{user.uno}}<br>
+email：{{user.email}}<br>
 {% endblock %}
