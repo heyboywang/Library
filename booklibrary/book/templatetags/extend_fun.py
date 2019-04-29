@@ -7,7 +7,7 @@ register = template.Library()
 def queryuser(uid):
     return Suser.objects.get(pk=uid)
 
-@register.simple_tag
-def get_borrows():
-    borrowsbooks = Borrows.objects.all().filter(status = True)
-    return borrowsbooks
+# @register.simple_tag
+# def get_borrows():
+#     borrowsbooks = Borrows.objects.all()
+#     return borrowsbooks

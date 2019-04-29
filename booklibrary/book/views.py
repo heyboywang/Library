@@ -27,19 +27,17 @@ def user(request):
 
 def login_tools(request):
     users = Suser.objects.all()
-    # form = SLoginForm(request.POST)
-    if request.method == "POST":
-        for user in users:
-            if user.username == request.POST["username"]:
-                if user.password == request.POST['pwd']:
-                    request.session["username"] = user.username
-                    return render(request,"booklibrary/user.html",{"user":user})
-
-                    # return HttpResponse("登录成功")
+    for user in users:
+        if user.username == request.POST["username"]:
+            if user.check_password(request.POST['pwd']):
+                request.session["username"] = user.username
+                print(request.session["username"])
+                # return render(request,"booklibrary/user.html",{"user":users})
+                return HttpResponseRedirect("/user/", {"user": user})
             else:
-                return render(request, "booklibrary/index.html")
+                return render(request, "booklibrary/user_login.html", {"error": "密码错误，请重新输入"})
     else:
-        return render(request, "booklibrary/index.html")
+        return render(request, "booklibrary/user_login.html", {"error": "无该用户，请重新输入"})
 
 def logout(request):
     request.session.clear()
@@ -54,7 +52,12 @@ def user_register(request):
 
 def register_tools(request):
     form = SuserForm(request.POST)
+    # form.set_password(form.password)
+    username = request.POST['username']
     form.save()
+    user = Suser.objects.get(username = username)
+    user.set_password(user.password)
+    user.save()
     return render(request, "booklibrary/user_login.html")
 
 def user_info(request):
@@ -98,30 +101,36 @@ def querybook(request):
         item = request.POST["item"]
         query = request.POST["query"]
         if item == "bname":
-            books = Book.objects.all().filter(bname = query)
+            books = Book.objects.all().filter(bname__contains = query)
         else:
-            books = Book.objects.all().filter(auther = query)
+            books = Book.objects.all().filter(auther__contains = query)
         return render(request,"booklibrary/querybook.html",{"books":books})
 
 def book_info(request,id):
     if request.method == "GET":
         book = Book.objects.get(pk = id)
-
-
-        return render(request, "booklibrary/book_info.html", {"book": book})
+        borrow = Borrows.objects.all().filter(bname=book).filter(status=True)[0]
+        if borrow:
+            res = True
+        else:
+            res = False
+        return render(request, "booklibrary/book_info.html", {"book": book,"res":res,"borrow":borrow})
     elif request.method == "POST":
         book = Book.objects.get(pk=id)
         borrows = Borrows()
-
         uname = request.session["username"]
         user = Suser.objects.get(username=uname)
         borrows.uname = user
         borrows.bname = book
         borrows.status = True
         borrows.date_borrow = datetime.now()
-        borrows.date_retur = datetime.now()+timedelta(days=30)
+        borrows.date_retur = datetime.now() + timedelta(days=30)
         borrows.save()
-        return HttpResponseRedirect("/book_info/"+str(book.id)+"/")
+        borrow = Borrows.objects.all().filter(bname=book).filter(status=True)
+
+        return HttpResponseRedirect("/book_info/" + str(book.id) + "/", {"book": book,"res":True,"borrow":borrow})
+
+
 
 def borrow_info(request):
     uname = request.session["username"]

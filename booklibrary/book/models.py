@@ -26,3 +26,4 @@ class Borrows(models.Model):
     def statu(self):
         return self.status
     statu.short_description = '状态'
+

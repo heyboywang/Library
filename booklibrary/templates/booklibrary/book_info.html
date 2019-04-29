@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load extend_fun %}
 {% block link %}
     <a href="{% url 'library:querybook' %}"> 返回   </a>|
 {% endblock %}
@@ -12,26 +11,20 @@
 作者：{{book.auther}}<br>
 出版社：{{book.public_com}}<br>
 出版时间：{{book.public_date}}<br><br>
-<h3>借阅信息</h3>
-{% get_borrows as borrows %}
-{% for borrow in borrows %}
-    {% if borrow.bname == book %}
-    <h4>已借阅</h4>
-    {% else %}
-    <h4>未借阅</h4>
+
+<div>
+  <h2 > 借阅信息 </h2>
+  {% if res  %}
+  <li> 借阅者姓名 {{borrow.uname}}</li>
+  <li> 借阅日期  {{borrow.date_borrow}}</li>
+  <li> 还书日期  {{borrow.date_retur}}</li>
+  {% else %}
+  <li> 无 </li>
     <form action="{% url 'library:book_info' book.id %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="借阅">
-    </form>
-    {% endif %}
-{% empty %}
-<h4>未借阅</h4>
-<form action="{% url 'library:book_info' book.id %}" method="post">
     {% csrf_token %}
     <input type="submit" value="借阅">
-</form>
-{% endfor %}
-
-
+    </form>
+  {% endif %}
+</div>
 
 {% endblock %}
