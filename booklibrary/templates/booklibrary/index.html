@@ -63,6 +63,15 @@
 
 </div>
 
+{# 富文本测试 #}
+<div>
+    {% for message in messages %}
+    信息标题：{{message.title}}<br>
+    信息文章：{{message.content|safe}}
+    {% empty %}
+    <h3>空</h3>
+    {% endfor %}
+</div>
 
 
 {% endblock %}

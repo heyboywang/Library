@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^querybook/$',views.querybook,name="querybook"),
     url(r'^book_info/(\d+)/$',views.book_info,name="book_info"),
     url(r'^borrow_info/$',views.borrow_info,name="borrow_info"),
+    url(r'^edit/$',views.edit,name="edit"),
 ]

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -34,3 +35,10 @@ class Hotpic(models.Model):
 
     def __str__(self):
         return self.pname
+
+class MessageInfo(models.Model):
+    title = models.CharField(max_length=100)
+    content = HTMLField()
+
+    def __str__(self):
+        return self.title

@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,reverse
 from .models import *
 from django.http import HttpResponse,HttpResponseRedirect
 from .forms import SuserForm
@@ -7,10 +7,11 @@ from datetime import *
 
 def index(request):
     username = request.session.get("username")
+    messages = MessageInfo.objects.all()
     if username:
-        return render(request, "booklibrary/index.html",{"username":username})
+        return render(request, "booklibrary/index.html",{"username":username,"messages":messages})
     else:
-        return render(request,"booklibrary/index.html")
+        return render(request,"booklibrary/index.html",{"messages":messages})
     # return HttpResponse("shouye")
 
 def user_login(request):
@@ -130,11 +131,18 @@ def book_info(request,id):
 
         return HttpResponseRedirect("/book_info/" + str(book.id) + "/", {"book": book,"res":True,"borrow":borrow})
 
-
-
 def borrow_info(request):
     uname = request.session["username"]
     user = Suser.objects.get(username=uname)
     borrows = user.borrows_set.all()
     return render(request, "booklibrary/borrow_info.html", {"borrows": borrows})
 
+def edit(request):
+    if request.method == "GET":
+        return render(request,"booklibrary/edit.html")
+    else:
+        title = request.POST["title"]
+        content = request.POST["content"]
+        mes = MessageInfo(title=title,content=content)
+        mes.save()
+        return HttpResponseRedirect(reverse("library:index"))

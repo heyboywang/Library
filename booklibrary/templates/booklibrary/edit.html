@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block linkcss %}
+<script src="/static/tiny_mce/tiny_mce.js"></script>
+ <script type="text/javascript">
+     tinyMCE.init({
+         'mode':'textareas',
+         'theme':'advanced',
+         'width':600,
+         'height':400
+     });
+ </script>
+{% endblock %}
+
+{% block body%}
+<form action="{% url 'library:edit' %}" method="post">
+    {% csrf_token %}
+    <h4>标题</h4>
+    <input type="text" name="title">
+    <h4>内容</h4>
+    <textarea name="content"  cols="30" rows="10"></textarea><br>
+    <input type="submit" value="提交">
+</form>    
+
+{% endblock %}

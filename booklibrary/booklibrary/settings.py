@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'book',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -123,5 +124,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,"static")]
 
-
+#后台添加图片
 MEDIA_ROOT = os.path.join(BASE_DIR,"static/media")
+
+#富文本编辑器
+TINYMCE_DEFAULT_CONFIG = {
+    'theme':'advanced',
+    'width':600,
+    'height':400,
+}
+
