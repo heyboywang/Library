@@ -1,5 +1,5 @@
 from django import template
-from book.models import Suser,Borrows,Hotpic
+from book.models import Suser,Borrows,Hotpic,MessageInfo
 
 register = template.Library()
 
@@ -16,3 +16,8 @@ def queryuser(uid):
 def get_pic():
     hotpics = Hotpic.objects.all().order_by("index")
     return hotpics
+
+@register.simple_tag
+def get_message():
+    messages = MessageInfo.objects.all()
+    return messages

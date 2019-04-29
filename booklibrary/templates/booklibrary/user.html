@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block link %}
+	{% if user.headpic %}
 	<img src="/static/media/{{user.headpic.url}}" alt="加载失败" width="30px" style="border-radius:15px" >
+	{% endif %}
     <a href="{% url 'library:logout' %}"> 注销[{{user.username}}] </a> |
 	<a href="{% url 'library:querybook' %}"> 查询 </a> |
 	<a href="{% url 'library:user_info' %}"> 查看个人信息 </a> |

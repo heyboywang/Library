@@ -8,7 +8,12 @@
 
 {% block body %}
 <h4>姓名：{{user.username}}</h4>
-<h4>头像：</h4><img src="/static/media/{{user.headpic.url}}" alt="加载失败" width="30px" style="border-radius:15px" >
+<h4>头像：</h4>
+{% if user.headpic %}
+<img src="/static/media/{{user.headpic.url}}" alt="加载失败" width="30px" style="border-radius:15px" >
+{% else %}
+无
+{% endif %}
 <h4>学院：{{user.college}}</h4>
 <h4>学号：{{user.uno}}</h4>
 <h4>email：{{user.email}}</h4>

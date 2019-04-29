@@ -6,7 +6,7 @@
 {% else %}
     <a href="{% url 'library:user_login' %}">学生登录</a>
 {% endif %}
-<a href="">浏览信息</a>
+<a href="{% url 'library:messages' %}">公告浏览</a>
 {% endblock %}
 
 
@@ -28,8 +28,6 @@
               <img src="/static/imgs/me.jpg" alt="加载失败">
               {% endfor %}
 
-
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
           </ol>
 
       <!-- Wrapper for slides -->
@@ -61,16 +59,6 @@
       </a>
     </div>
 
-</div>
-
-{# 富文本测试 #}
-<div>
-    {% for message in messages %}
-    信息标题：{{message.title}}<br>
-    信息文章：{{message.content|safe}}
-    {% empty %}
-    <h3>空</h3>
-    {% endfor %}
 </div>
 
 

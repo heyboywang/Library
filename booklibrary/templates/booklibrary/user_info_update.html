@@ -17,7 +17,7 @@
         <h6 style="color: red">填写即为修改，不填默认原信息</h6>
         <h4>用户名：<br><input type="text" name="uname" placeholder={{user.username}}></h4>
         <h4>头像：</h4>
-        {% if user.headpic.url %}
+        {% if user.headpic %}
         <h5 style="color: red">已有头像，切换请重选。。。</h5>
         <input type="file" name="headpic" >
         {% else %}
