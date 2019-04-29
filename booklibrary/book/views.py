@@ -64,22 +64,29 @@ def register_tools(request):
 def user_info(request):
     uname = request.session["username"]
     user = Suser.objects.get(username = uname)
+    print("-------------------")
+    print(user.headpic.url)
     return render(request, "booklibrary/user_info.html",{"user":user})
 
 def user_info_update(request,id):
+    user = Suser.objects.get(pk = id)
+    print("+++++++++")
+    print(type(user.headpic))
     if request.method == "GET":
-        user = Suser.objects.get(pk = id)
         return render(request,"booklibrary/user_info_update.html",{"user":user})
     elif request.method == "POST":
-        user = Suser.objects.get(pk = id)
         if len(request.POST["uname"]) == 0:
             user.username=user.username
         else:
             user.username = request.POST["uname"]
+        if request.FILES["headpic"]:
+            user.headpic = request.FILES["headpic"]
+        else:
+            user.headpic = user.headpic
         if len(request.POST["pwd"]) == 0:
             user.password=user.password
         else:
-            user.password = request.POST["pwd"]
+            user.set_password(request.POST["pwd"])
         if len(request.POST["college"]) == 0:
             user.college=user.college
         else:

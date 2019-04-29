@@ -5,6 +5,7 @@ from tinymce.models import HTMLField
 # Create your models here.
 
 class Suser(User):
+    headpic = models.ImageField(upload_to="userpic",null=True,blank=True)
     college = models.CharField(max_length=30,null=True,blank=True)
     uno = models.IntegerField(null=True,blank=True)
 
