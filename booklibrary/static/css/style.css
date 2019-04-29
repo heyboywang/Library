@@ -176,4 +176,12 @@ div.error {
     padding: 4px;
     font-size: 13px;
 }
+
+div.hotpic{
+    background-color: blue;
+    width: 680px;
+}
+
 .login_form {text-align:text}
+
+

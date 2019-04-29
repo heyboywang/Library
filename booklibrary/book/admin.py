@@ -12,3 +12,4 @@ class BorrowsAdmin(admin.ModelAdmin):
 admin.site.register(Suser)
 admin.site.register(Book)
 admin.site.register(Borrows,BorrowsAdmin)
+admin.site.register(Hotpic)

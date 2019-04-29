@@ -27,3 +27,10 @@ class Borrows(models.Model):
         return self.status
     statu.short_description = '状态'
 
+class Hotpic(models.Model):
+    pname = models.CharField(max_length=20)
+    pic = models.ImageField(upload_to="hotpic")
+    index = models.SmallIntegerField(unique=True)
+
+    def __str__(self):
+        return self.pname

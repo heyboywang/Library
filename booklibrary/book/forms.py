@@ -11,3 +11,5 @@ class SuserForm(forms.ModelForm):
 #     class Meta():
 #         model = Suser
 #         fields = ['username','password']
+
+
