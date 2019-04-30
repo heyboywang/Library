@@ -5,6 +5,7 @@ from .forms import SuserForm
 from datetime import *
 from django.core.mail import send_mail,send_mass_mail
 from django.conf import settings
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer,SignatureExpired
 # Create your views here.
 
 def index(request):
@@ -62,16 +63,26 @@ def register_tools(request):
     user.save()
     id = user.id
     email = user.email
+    #序列化Id
+    serutil = Serializer(settings.SECRET_KEY,300)
+    resultid = serutil.dumps({"userid":id}).decode("utf-8")
     print(email)
-    send_mail("图书馆账号激活","<a href = 'http:127.0.0.1:8000/active/%s>点我</a>"%(id,)
+    send_mail("图书馆账号激活","<a href = 'http:127.0.0.1:8000/active/%s>点我</a>"%(resultid,)
               ,settings.DEFAULT_FROM_EMAIL,[email,])
     return render(request, "booklibrary/user_login.html")
 
 def active(request,id):
-    user = Suser.objects.get(pk = int(id))
-    user.is_active = True
-    user.save()
-    return HttpResponseRedirect(reverse("library:user_login"))
+    deser = Serializer(settings.SECRET_KEY,300)
+    try:
+        obj = deser.loads(id)
+        user = Suser.objects.get(pk=int(obj["userid"]))
+        user.is_active = True
+        user.save()
+        return HttpResponseRedirect(reverse("library:user_login"))
+    except SignatureExpired as e:
+        return HttpResponse("已失效")
+
+
 
 def user_info(request):
     uname = request.session["username"]

@@ -17,6 +17,6 @@ urlpatterns = [
     url(r'^book_info/(\d+)/$',views.book_info,name="book_info"),
     url(r'^borrow_info/$',views.borrow_info,name="borrow_info"),
     url(r'^edit/$',views.edit,name="edit"),
-    url(r'^active/(\d+)/$',views.active,name="active"),
+    url(r'^active/(.*?)/$',views.active,name="active"),
     url(r'^messages/$',views.messages,name="messages"),
 ]
