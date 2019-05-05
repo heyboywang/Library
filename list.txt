@@ -1,0 +1,11 @@
+Django==2.2
+django-haystack==2.8.1
+django-redis-cache==2.0.0
+django-tinymce==2.8.0
+itsdangerous==1.1.0
+jieba==0.39
+Pillow==6.0.0
+pytz==2019.1
+redis==3.2.1
+sqlparse==0.3.0
+Whoosh==2.7.4

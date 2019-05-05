@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load extend_fun %}
+{% block link %}
+    <a href="{% url 'library:index' %}"> 返回   </a>
+{% endblock %}
+
+
+{% block body %}
+{% get_message as messages %}
+{# 富文本测试 #}
+<div>
+    {% for message in messages %}
+    <h2>信息标题：</h2>{{message.title}}<br>
+    <h3>信息文章：</h3>{{message.content|safe}}
+    {% empty %}
+    <h3>空</h3>
+    {% endfor %}
+</div>
+
+{% endblock %}
